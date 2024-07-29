@@ -18,7 +18,7 @@ urlpatterns = [
     path('test_api/',include("apps.test_api.urls",namespace="test_api")),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
-]+static(settings.MEDIA_URL,document_root=settings.STATIC_ROOT)
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 handler404='apps.main.views.handler404'
 
