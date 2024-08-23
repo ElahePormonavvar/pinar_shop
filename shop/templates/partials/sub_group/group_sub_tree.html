@@ -1,0 +1,14 @@
+{% if group not in visited_groups %}
+    {% with visited_groups=visited_groups|default_if_none:""|add:group %}
+    <ul class="megamenu__links megamenu__links--level--1">
+        {% for subgroup in group.groups.all %}
+            <li class="megamenu__item">
+                <a href="{% url 'products:category' subgroup.slug %}">{{ subgroup.group_title }}</a>
+                {% if subgroup.groups.exists and subgroup not in visited_groups %}
+                    {% include 'partials/group_subtree.html' with group=subgroup visited_groups=visited_groups %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    {% endwith %}
+{% endif %}

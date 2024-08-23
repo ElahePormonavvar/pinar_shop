@@ -1,0 +1,14 @@
+{% comment %} <div class="block block-products block-products--layout--large-last"> {% endcomment %}
+<div class="block block-products-carousel" data-layout="grid-5">
+    <div class="container">   
+        <div class="block-header">
+            <h3 class="block-header__title">پرفروش ترین ها</h3>
+            <div class="block-header__divider"></div>
+        </div>
+        <div class="product_flexbox">                                 
+            {% for product in best_selling_products %}
+                {% include 'partials/product/product_box.html' with type=1 %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<h1>محصولات در دسته {{ group.group_title }}</h1>
+<ul>
+    {% for product in products %}
+        <li>{{ product.product_name }} - {{ product.price }} تومان</li>
+    {% endfor %}
+</ul>
+
+
+
+{% comment %} {% for group in groups %}
+    <li class="megamenu__item megamenu__item--with-submenu">
+        <a class="nav-link" href="">{{ group.group_title }}</a>
+        <span class="showSubMenu">
+            <i class="bi bi-chevron-left"></i>
+        </span>
+        <ul class="navbar-nav h-0 bg-ul-f7">
+            {% for item1 in product_groups %}
+                {% if item1.product_group_id == group.id %}
+                    {% for item2 in products %}
+                        {% if item2.id == item1.products_id %}
+                            <li class="nav-item">
+                                <a href="{{ item2.get_absolute_url }}" class="nav-link">{{ item2.product_name }}</a>
+                            </li>
+                        {% endif %}            
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </ul> 
+    </li>
+{% endfor %} {% endcomment %}

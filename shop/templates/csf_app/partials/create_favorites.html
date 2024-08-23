@@ -1,0 +1,11 @@
+{% extends 'main_template.html' %}
+{% load render_partial %}
+{% load humanize %}
+{% block titile %}
+    لیست علاقه مندی ها  
+{% endblock titile %}
+{% block content %}
+    <div id="favorite_list">
+        {% render_partial 'csf:user_favorite_list' %}
+    </div>
+{% endblock %}

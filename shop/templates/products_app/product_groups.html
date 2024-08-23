@@ -1,0 +1,24 @@
+{% extends 'main_template.html' %}
+{% load render_partial %}
+{% block title %}فروشگاه درسمن{% endblock title %}
+{% block content %}
+<h1>گروه محصولات</h1>
+<div class="block-categories__list">   
+    {% for group in product_groups %}
+    <div class="block-categories__item category-card category-card--layout--compact">
+        <div class="category-card__body">
+            <div class="category-card__image">
+                <a href="{% url 'products:products_of_group' slug=group.slug %}">
+                    <img src="{{media_url}}{{group.image_name}}" alt="">
+                </a>
+            </div>
+            <div class="category-card__content">
+                <div class="category-card__name">
+                    <a href="{% url 'products:products_of_group' slug=group.slug %}">{{group.group_title}}</a>
+                </div>
+                <div class="category-card__products">{{group.products_of_groups.all|length}}محصول</div>
+            </div>
+        </div>
+    </div>     
+    {% endfor %}
+{% endblock content %}

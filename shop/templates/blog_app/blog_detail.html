@@ -1,0 +1,18 @@
+{% extends 'main_template.html' %}
+{% load render_partial %}
+{% block title %}
+    مقالات فروشگاه 
+{% endblock title %}
+{% block content %}
+    <article>
+        <h1>{{ post.article_title }}</h1>
+        <img src="{{ media_url }}{{ post.image_name }}" alt="عکس مقاله" style="width: 500px; height: 250;"/>
+        <p>نویسنده: {{ post.author }} | تاریخ انتشار: {{ post.published_at|date:"Y-m-d" }}</p>
+        <div >
+        {{ post.content }}
+        </div>
+        <div style="text-align:left">
+            <a href="{% url 'blogs:blog_list' %}">صفحه قبل</a>
+        </div>
+    </article>
+{% endblock %}

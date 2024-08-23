@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    
+        {% block title %}
+			پروفایل کاربری  
+        {% endblock title %}
+    </title>
+	<link rel="icon" type="image/png" href="{{media_url}}images/favicon.png">
+	<!-- css -->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-4.5.3/css/bootstrap.min.css' %} ">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/owl-carousel-2.3.4/assets/owl.carousel.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+	<!-- js -->
+	<script src="{% static 'vendor/jquery-3.7.1/jquery.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'vendor/bootstrap-4.5.3/js/bootstrap.bundle.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'vendor/owl-carousel-2.3.4/owl.carousel.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+	<script src="{% static 'js/myscripts.js' %}" type="text/javascript"></script>
+	<script src="{% static 'js/admin_script.js' %}" type="text/javascript"></script>
+	<!-- font - fontawesome -->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/fontawesome-5.6.3/css/all.min.css' %}">
+</head>
+<body>
+    {% comment %} {% include 'partials/user_panel_header.html' %} {% endcomment %}
+    {% include 'partials/navbar.html' %}
+	{% include 'partials/messages.html' %}
+    <div class="site__body">
+        <div class="page-header">
+            <div class="page-header__container container">
+                <div class="page-header__title">
+                    <h1>حساب کاربری</h1>
+                </div>
+            </div>
+            <div class="block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-3 d-flex">
+                            <div class="account-nav flex-grow-1">
+                                <h4>منو اصلی</h4>
+                                <ul>
+                                    <li class="account-nav__item account-nav__item--active"><a href="accounts:userpanel">داشبورد</a></li>
+                                    <li class="account-nav__item"><a href="{% url 'accounts:update_profile' %}">ویرایش پروفایل</a></li>
+                                    <li class="account-nav__item"><a href="{% url 'accounts:show_user_payments' %}">سابقه پرداخت</a></li>
+                                    <li class="account-nav__item"><a href="{% url 'accounts:changepassword' %}">تغییر رمز عبور</a></li>
+                                    <li class="account-nav__item"><a href="{% url 'accounts:logout' %}">خروج</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% block content %}
+
+    {% endblock content %}
+        
+    
+</body>
+</html>

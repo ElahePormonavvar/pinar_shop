@@ -1,0 +1,94 @@
+{% extends 'main_template.html' %}
+{% load render_partial %}
+{% block title %}
+    فروشگاه پینار
+{% endblock title %}
+{% block content %}
+<div class="site__body">
+    <!-- .block-slideshow -->
+    {% render_partial 'main:sliders' %} 
+    <!-- .block-slideshow / end -->
+    <!-- .block-features -->
+    <div class="block block-features block-features--layout--boxed">
+        <div class="container">
+            <div class="block-features__list">
+                <div class="block-features__item">
+                    <div class="block-features__icon">
+                        <i class="fa fa-list"></i>
+                    </div>
+                    <div class="block-features__content">
+                        <div class="block-features__title">ارسال رایگان</div>
+                        <div class="block-features__subtitle">لورم ایپسوم متن ساختگی</div>
+                    </div>
+                </div>
+                <div class="block-features__divider"></div>
+                <div class="block-features__item">
+                    <div class="block-features__icon">
+                        <i class="fa fa-list"></i>
+                    </div>
+                    <div class="block-features__content">
+                        <div class="block-features__title">پشتیبانی 24 ساعته</div>
+                        <div class="block-features__subtitle">هر زمان تماس بگیرید</div>
+                    </div>
+                </div>
+                <div class="block-features__divider"></div>
+                <div class="block-features__item">
+                    <div class="block-features__icon">
+                        <i class="fa fa-list"></i>
+                    </div>
+                    <div class="block-features__content">
+                        <div class="block-features__title">100% امن</div>
+                        <div class="block-features__subtitle">پرداخت های امن</div>
+                    </div>
+                </div>
+                <div class="block-features__divider"></div>
+                <div class="block-features__item">
+                    <div class="block-features__icon">
+                        <i class="fa fa-list"></i>
+                    </div>
+                    <div class="block-features__content">
+                        <div class="block-features__title">پیشنهادات جدید</div>
+                        <div class="block-features__subtitle">تخفیف تا 90%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- .block-features / end -->
+    {% render_partial 'products:chepest_products' %}
+    <!-- .block-banner -->
+    <div class="block block-banner">
+        <div class="container">
+            <a href="" class="block-banner__body">
+                <div class="block-banner__image block-banner__image--desktop"
+                    style="background-image: url('https://picsum.photos/1110/170')"></div>
+                <div class="block-banner__image block-banner__image--mobile"
+                    style="background-image: url('https://picsum.photos/510/390')"></div>
+                <div class="block-banner__title">
+                    کالای تبلیغاتی
+                    <br class="block-banner__mobile-br">
+                </div>
+                <div class="block-banner__text">بهترین کالا برای خرید شما</div>
+                <div class="block-banner__button"><span class="btn btn-sm btn-primary">هم اکنون بخرید</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- .block-banner / end -->
+    <!-- .block-products -->
+    {% render_partial 'orders:best_selling_products' %}
+    <!-- .block-products / end -->
+    <!-- .block-categories -->
+    {% render_partial 'products:popular_products_group' %}
+    <!-- .block-categories / end -->
+    <!-- .block-products-carousel -->
+    {% render_partial 'products:last_products' %}
+    <!-- .block-products-carousel / end -->
+    <!-- .block-posts -->
+    <!-- .block-posts / end -->
+    <!-- .block-brands -->
+    <!-- .block-brands / end -->
+</div>    
+{% endblock content %}
+    
+    
