@@ -1,0 +1,31 @@
+{% extends 'user_panel_template.html' %}
+{% load render_partial %}
+{% block titile %}
+    پیام های من
+{% endblock titile %}
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>عنوان پیام</th>
+                <th>متن پیام</th>
+                <th>تاریخ درج</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.subject }}</td>
+                <td>{{ contact.message }}</td>
+                <td>{{ contact.created_at }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No messages found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

@@ -27,7 +27,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'vendor/fontawesome-5.6.3/css/all.min.css' %}">
 </head>
 <body>
-    {% comment %} {% include 'partials/user_panel_header.html' %} {% endcomment %}
+    {% include 'partials/user_panel_header.html' %}
     {% include 'partials/navbar.html' %}
 	{% include 'partials/messages.html' %}
     <div class="site__body">
@@ -46,6 +46,7 @@
                                 <ul>
                                     <li class="account-nav__item account-nav__item--active"><a href="accounts:userpanel">داشبورد</a></li>
                                     <li class="account-nav__item"><a href="{% url 'accounts:update_profile' %}">ویرایش پروفایل</a></li>
+                                    <li class="account-nav__item"><a href="{% url 'accounts:show_last_messages' %}">پیام ها</a></li>
                                     <li class="account-nav__item"><a href="{% url 'accounts:show_user_payments' %}">سابقه پرداخت</a></li>
                                     <li class="account-nav__item"><a href="{% url 'accounts:changepassword' %}">تغییر رمز عبور</a></li>
                                     <li class="account-nav__item"><a href="{% url 'accounts:logout' %}">خروج</a></li>

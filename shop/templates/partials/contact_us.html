@@ -1,0 +1,41 @@
+{% extends 'main_template.html' %}
+{% block title %}
+    ارتباط با پینار 
+{% endblock title %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Contact Us</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">نام</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="family">نام خانوادگی</label>
+                    {{ form.family }}
+                </div>
+                <div class="form-group">
+                    <label for="email">ایمیل</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">موبایل</label>
+                    {{ form.phone_number }}
+                </div>
+                <div class="form-group">
+                    <label for="subject">موضوع</label>
+                    {{ form.subject }}
+                </div>
+                <div class="form-group">
+                    <label for="message">متن پیام</label>
+                    {{ form.message }}
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">ارسال پیام</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -13,6 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from apps.orders.models import Order
 from apps.payments.models import Payment
+from apps.main.models import Contact
 # -----------------------------------------------------------------------------------------
 class RegisterUserView(View):
 
@@ -278,3 +279,10 @@ def show_last_order(request):
 def show_user_payments(request):
     payments=Payment.objects.filter(customer_id=request.user.id).order_by('-register_date')
     return render(request,'accounts_app/show_user_payments.html',{'payments':payments})
+
+# ------------------------------------------------------------------------------------------
+@login_required
+def show_last_messages(request):
+    contacts=Contact.objects.filter(contact_user_id=request.user.id)
+    print(contacts)
+    return render(request,'accounts_app/partials/show_last_messages.html',{'contacts':contacts})

@@ -2,6 +2,8 @@ from django.db import models
 from utils import FileUpload
 from django.utils import timezone
 from django.utils.html import mark_safe
+from apps.accounts.models import Customer
+
 
 class Slider(models.Model):
     slider_title1=models.CharField(max_length=500,null=True, blank=True,verbose_name='متن اول')
@@ -29,4 +31,13 @@ class Slider(models.Model):
     def link(self):
         return mark_safe(f'<a href="{self.slider_link}" target="_blank">link</a>')
     link.short_description ='پیوندها'
-    
+
+# --------------------------------------------------------------------------------
+class Contact(models.Model):
+    contact_user = models.ForeignKey(Customer, on_delete=models.CASCADE,verbose_name='کاربر تماس گیرنده')
+    subject = models.CharField(max_length=255,verbose_name='موضوع تماس')
+    message = models.TextField(verbose_name='پیام تماس')
+    created_at = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ درج')
+
+    def __str__(self):
+        return f"{self.id} {self.contact_user.user.name} {self.subject} {self.message} {self.created_at}"

@@ -15,5 +15,6 @@ urlpatterns = [
     path('show_last_order/',views.show_last_order,name='show_last_order'),
     path('show_user_payments/',views.show_user_payments,name='show_user_payments'),
     path('update_profile/',views.UpdateProfileView.as_view(),name='update_profile'),
+    path('show_last_messages/',views.show_last_messages,name='show_last_messages'),
 
 ]
