@@ -27,9 +27,10 @@
                                 <!-- .megamenu -->
                                 <div class="megamenu">
                                     <div class="row">
-                                        <div class="col-4">
-                                            <ul class="megamenu__links megamenu__links--level--0">
-                                                {% for node in group_tree %}
+                                        <div class="col">
+                                            {% for node in group_tree %}
+                                                <ul class="megamenu__links megamenu__links--level--0">
+                                                
                                                     <li class="megamenu__item megamenu__item--with-submenu">
                                                         <a href="{% url 'products:category' node.group.slug %}">{{ node.group.group_title }}</a>
                                                         {% if node.children %}
@@ -40,7 +41,7 @@
                                                                         {% if child_node.children %}
                                                                             <ul>
                                                                                 {% for sub_child_node in child_node.children %}
-                                                                                    <li>
+                                                                                <li class="megamenu__links--level--2">
                                                                                         <a href="{% url 'products:category' sub_child_node.group.slug %}">
                                                                                             {{ sub_child_node.group.group_title }}
                                                                                         </a>
@@ -53,18 +54,8 @@
                                                             </ul>
                                                         {% endif %}
                                                     </li>
-                                                {% endfor %}
-                                            </ul>
-                                            {% comment %} <ul class="megamenu__links megamenu__links--level--0">
-                                                {% for group in top_level_groups %}
-                                                    <li class="megamenu__item megamenu__item--with-submenu">
-                                                        <a href="{% url 'products:category' group.slug %}">{{ group.group_title }}</a>
-                                                        {% if group.groups.exists %}
-                                                            {% include 'partials/sub_group/group_sub_tree.html' with group=group visited_groups=visited_groups %}
-                                                        {% endif %}
-                                                    </li>
-                                                {% endfor %} 
-                                            </ul> {% endcomment %}
+                                                </ul>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>

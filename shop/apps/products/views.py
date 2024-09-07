@@ -6,6 +6,7 @@ from .filters import ProductFilter
 from .compare import CompareProduct
 from django.http import HttpResponse
 from django.contrib import messages
+from django.views.generic import ListView
 
 # --------------------------------------------------------------------------------------
 def get_root_group():
@@ -54,7 +55,8 @@ class ProductDetailsView(View):
     def get(self,request,slug):
         product=get_object_or_404(Product,slug=slug)
         if product.is_active:
-            return render(request,"products_app/product_details.html",{'product':product})
+            product_group = product.product_group.first()
+            return render(request,"products_app/product_details.html",{'product':product,'product_group': product_group})
         
 # --------------------------------------------------------------------------------------
 # محصولات مرتبط
@@ -117,9 +119,6 @@ def get_filter_value_for_feature(request):
 # -------------------------# دسته بندی محصولات در navbar-----------------------------------
 
 def build_group_tree(parent_group):
-    """
-    تابع بازگشتی برای ساخت درخت سلسله‌مراتبی از گروه‌ها.
-    """
     children = ProductGroup.objects.filter(group_parent=parent_group, is_active=True)
     return [
         {
@@ -129,59 +128,35 @@ def build_group_tree(parent_group):
         for child in children
     ]
 
+
 def product_navigation(request):
-    """
-    ویو برای بارگذاری گروه‌های سطح بالا و ساخت درخت گروه‌ها.
-    """
     top_level_groups = ProductGroup.objects.filter(group_parent__isnull=True, is_active=True)
-    
     group_tree = []
     for group in top_level_groups:
         group_tree.append({
             'group': group,
             'children': build_group_tree(group)
         })
-
     return render(request, 'partials/navbar.html', {'group_tree': group_tree})
 
 
-# def product_navigation(request):
-
-#     top_level_groups = ProductGroup.objects.filter(group_parent__isnull=True, is_active=True)
-#     visited_groups = set()
-#     return render(request, 'partials/navbar.html', {'top_level_groups': top_level_groups,'visited_groups':visited_groups})
-    
-    # all_groups = ProductGroup.objects.all()
-    # for group in top_level_groups:
-    #     print(group.group_title, group.group_parent, group.is_active)
-
-
-from django.views.generic import ListView
-from .models import Product, ProductGroup
 class ProductListView(ListView):
     model = Product
     template_name = 'partials/sub_group/category2.html'
     context_object_name = 'products'
 
     def get_queryset(self):
-        group = ProductGroup.objects.get(slug=self.kwargs['slug'])
-        return Product.objects.filter(product_group=group, is_active=True)
-    
+        try:
+            group = ProductGroup.objects.get(slug=self.kwargs['slug'])
+            return Product.objects.filter(product_group__in=[group], is_active=True)
+        except ProductGroup.DoesNotExist:
+            return Product.objects.none()
+        
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['group'] = ProductGroup.objects.get(slug=self.kwargs['slug'])
-#         return context
+        return context
     
-# def show_sub_group(request):
-#     products=Product.objects.all()
-#     product_groups=Product.product_group.groups.objects.all()
-#     groups=ProductGroup.objects.all()
-#     context={
-#         'products':products,
-#         'product_groups':product_groups,
-#         'groups':groups,
-#     }
-#     return render(request,'partials/sub_group/category2.html',context)
 
 # ------------------------------------------------------------------------------------------
 from django.core.paginator import Paginator

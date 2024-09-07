@@ -14,11 +14,14 @@
                             <a href="{% url 'main:index' %}">خانه</a>
                             /
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="#">محصولات</a>
-                            /
-                        </li>
-                        <li class="active" aria-current="page">محصول</li>
+                        {% if product_group %}
+                            <li class="breadcrumb-item">
+                                <a href="#">{{ product_group.group_title }}</a>
+                                /
+                            </li>
+                        {% endif %}
+                   
+                        <li class="active" aria-current="page">{{product.product_name}}</li>
                     </ol>
                 </nav>
             </div>

@@ -76,7 +76,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.main.views.media_admin',
-                # 'apps.products.views.product_navigation',
+                'apps.products.context_processors.product_navigation_context'
                 
             ],
         },
