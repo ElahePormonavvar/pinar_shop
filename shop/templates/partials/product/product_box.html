@@ -1,6 +1,11 @@
 {% load humanize %}
 {% if type == 1 %}
   <div class="product-card" style="width: 200px !important; margin-left: 12px; margin-top: 10px;">
+    {% if product in new_products %}
+      <div class="product-card__badges-list">
+        <div class="product-card__badge product-card__badge--new">جدید</div>
+      </div>
+    {% endif %} 
     <div class="product-card__image">
       <a href="{{ product.get_absolute_url }}"><img src="{{ media_url }}{{ product.image_name }}" alt="" style="width: 100px;"/></a>
     </div>
@@ -18,7 +23,7 @@
             <div class="product-card__prices product-card__new-price">
               <del>{{ product.price|intcomma }} ریال </del>
             </div>
-            <span style="color:red;">{{ product.get_price_by_discount|intcomma }} ریال</span>
+            <span>{{ product.get_price_by_discount|intcomma }} ریال</span>
           {% else %}
             <span>{{ product.price|intcomma }} ریال</span>
           {% endif %}
@@ -47,7 +52,7 @@
 {% elif type == 2 %}
   <div class="product-card" style="width: 200px !important; margin-left: 12px; margin-top: 10px;">
     <div class="product-card__badges-list">
-      <div class="product-card__badge product-card__badge--sale">جدید</div>
+      <div class="product-card__badge product-card__badge--new">جدید</div>
     </div>
     <div class="product-card__image">
       <a href="{{ product.get_absolute_url }}"><img src="{{ media_url }}{{ product.image_name }}" alt="" /></a>
@@ -58,7 +63,6 @@
       </div>
     </div>
     <div class="product-card__actions">
-
       <div class="product-card__prices">
         {% if product.get_number_in_warehouse <= 0 %}
           <span style="color:red;">ناموجود</span>
@@ -67,7 +71,7 @@
             <div class="product-card__prices product-card__new-price">
               <del>{{ product.price|intcomma }} ریال </del>
             </div>
-            <span style="color:red;">{{ product.get_price_by_discount|intcomma }} ریال</span>
+            <span>{{ product.get_price_by_discount|intcomma }} ریال</span>
           {% else %}
             <span>{{ product.price|intcomma }} ریال</span>
           {% endif %}
@@ -91,16 +95,17 @@
           {% endif %}
       {% endif %}
       </div>
-
     </div>
   </div>
 
 {% elif type == 3 %}
   <div class="products-list__item">
     <div class="product-card">
-      <div class="product-card__badges-list">
-        <div class="product-card__badge product-card__badge--new">جدید</div>
-      </div>
+      {% if product in new_products %}
+        <div class="product-card__badges-list">
+          <div class="product-card__badge product-card__badge--new">جدید</div>
+        </div>
+      {% endif %} 
       <div class="product-card__image">
         <a href="{{ product.get_absolute_url }}"><img src="{{ media_url }}{{ product.image_name }}" alt="" /></a>
       </div>
@@ -121,7 +126,7 @@
               <div class="product-card__prices product-card__new-price">
                 <del>{{ product.price|intcomma }} ریال </del>
               </div>
-              <span style="color:red;">{{ product.get_price_by_discount|intcomma }} ریال</span>
+              <span>{{ product.get_price_by_discount|intcomma }} ریال</span>
             {% else %}
               <span>{{ product.price|intcomma }} ریال</span>
             {% endif %}
@@ -149,53 +154,5 @@
       </div>
     </div>
   </div>
-
-
-
-{% elif type == 4 %}
-  <div class="products-list__item">
-    <div class="product-card">
-      <div class="product-card__image">
-        <a href="{{ product.get_absolute_url }}"><img src="{{ media_url }}{{ product.image_name }}" alt="" /></a>
-      </div>
-      <div class="product-card__info">
-        <div class="product-card__name">
-          <a href="{{ product.get_absolute_url }}">{{ product.product_name }}</a>
-        </div>
-      </div>
-      <div class="product-card__actions">
-        <div class="product-card__availability">
-          موجودی: <span class="text-success">موجود در انبار</span>
-        </div>
-        {% if product.get_number_in_warehouse <= 0 %}
-          <span style="color:red;">ناموجود</span>
-        {% else %}
-          {% if product.get_price_by_discount < product.price %}
-            <del class="product-card__old-price">{{ product.price|intcomma }} تومان</del>
-            <span class="product-card__new-price">{{ product.get_price_by_discount|intcomma }} تومان</span>
-          {% else %}
-            <span class="product-card__old-price">{{ product.price|intcomma }} تومان</span>
-          {% endif %}
-        {% endif %}
-        <div class="product-card__buttons">
-          {% if product.get_number_in_warehouse > 0 %}
-            <button class="btn btn-primary product-card__addtocart" type="button" onclick="add_to_shop_cart({{product.id}},1)">افزودن به سبد</button>
-          {% endif %}  
-          {% if user.is_authenticated %}
-            {% if product.get_user_favorite  %}
-              <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" id="favorite_heart" type="button">
-                <i class="fa fa-heart"></i>
-                <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
-              </button>
-            {% else %}
-              <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button" onclick="addToFavorite({{product.id}})"> 
-                <i class="fa fa-heart-broken" id="favorite_bheart_{{product.id}}"></i>
-                <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
-              </button>
-            {% endif %}
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
+  
 {% endif %}

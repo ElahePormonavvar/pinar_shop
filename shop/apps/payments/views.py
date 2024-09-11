@@ -4,11 +4,9 @@ import json
 import requests
 from django.views import View
 from django.contrib import messages
-
 from apps.orders.models import Order,OrderState
 from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.http import HttpResponse
-from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 from apps.payments.models import Payment
 from apps.accounts.models import Customer

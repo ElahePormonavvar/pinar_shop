@@ -74,94 +74,7 @@
                             </button>
                         </div>
                         <h1 class="product__name">{{product.product_name}}</h1>
-                        <div class="product__rating">
-                            <div class="product__rating-stars">
-                                <div class="rating">
-                                    <div class="rating__body">
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="images/sprite.svg#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="images/sprite.svg#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="images/sprite.svg#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="images/sprite.svg#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="images/sprite.svg#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="product__description">                           
                                 {{product.summery_description}} 
                         </div>
@@ -207,15 +120,23 @@
                     <!-- .product__info / end -->
                     <!-- .product__sidebar -->
                     <div class="product__sidebar">
-                        <div class="product__availability">موجودی: <span class="text-success">موجود در انبار</span></div>
-                        {% if product.price > product.get_price_by_discount %}
-                        <div class="product-card__prices product-card__new-price">
-                          <del>{{ product.price|intcomma }} ریال</del>
+                        <div class="product__availability">موجودی:
+                            {% if product.get_number_in_warehouse <= 0 %}
+                                <span style="color:red;">ناموجود</span>
+                            {% else %}
+                                {% if product.price > product.get_price_by_discount %}
+                                    <div class="product-card__prices product-card__new-price">
+                                        <span class="text-success">موجود در انبار</span>
+                                        <del>{{ product.price|intcomma }} ریال </del>
+                                    </div>
+                                    <span style="color:red;">{{ product.get_price_by_discount|intcomma }} ریال</span>
+                                {% else %}
+                                    <span class="text-success">موجود در انبار</span>
+                                    <span>{{ product.price|intcomma }} ریال</span>
+                                    
+                                {% endif %}
+                            {% endif %}  
                         </div>
-                        <div class="product-card__prices">{{ product.get_price_by_discount|intcomma }} ریال</div> 
-                        {% else %}
-                            <div class="product-card__prices">{{ product.price|intcomma }} ریال</div>
-                        {% endif %}
                         <!-- .product__options -->
                         <form class="product__options">
         

@@ -4,7 +4,7 @@ from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.urls import reverse
 from datetime import datetime
-from django.db.models import Sum,Avg
+from django.db.models import Sum,Avg,Q
 from middlewares.middleware import RequestMiddleware
 # from ckeditor.fields import RichTextField
 # from django.db.models.signals import post_delete
@@ -134,8 +134,8 @@ class Product(models.Model):
 # ======================================================
     def getMainProductGroups(self):
         return self.product_group.all()[0].id
-    
-# ======================
+        
+# ======================================================
     class Meta:
         verbose_name='کالا'
         verbose_name_plural='کالاها'

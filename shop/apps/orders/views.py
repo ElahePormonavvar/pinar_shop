@@ -195,8 +195,12 @@ class ApplyCoupon(View):
 
 # ------------------------------------------------------------------------------
 def best_selling_products_view(request):
-
     best_selling_products = OrderDetails.get_best_selling_products()
-    return render(request, 'products_app/partials/seller_best.html', {'best_selling_products': best_selling_products})
+    new_products=Product.objects.filter(Q(is_active=True)).order_by('-published_date')[:5]
+    context={
+        'best_selling_products':best_selling_products,
+        'new_products':new_products,
+    }
+    return render(request, 'products_app/partials/seller_best.html',context)
 
 # ------------------------------------------------------------------------------

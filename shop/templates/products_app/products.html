@@ -74,42 +74,31 @@
                         <div class="block-sidebar__item d-none d-lg-block">
                             <div class="widget-products widget">
                                 <h4 class="widget__title">محصولات جدید</h4>
-                                <div class="widget-products__list">
-                                    <div class="widget-products__item">
-                                        <div class="widget-products__image">
-                                            <a href="product.html">
-                                                <img src="https://picsum.photos/700/700" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="widget-products__info">
-                                            <div class="widget-products__name"><a href="product.html">اره برقی برندیکس مدل 300 وات</a></div>
-                                            <div class="widget-products__prices">749,000 ریال</div>
-                                        </div>
-                                    </div>
-                                    <div class="widget-products__item">
-                                        <div class="widget-products__image">
-                                            <a href="product.html">
-                                                <img src="https://picsum.photos/700/700" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="widget-products__info">
-                                            <div class="widget-products__name"><a href="product.html">اره چوب بری IRadix مدل 2700 وات</a></div>
-                                            <div class="widget-products__prices">1,019,000 ریال</div>
-                                        </div>
-                                    </div>
-                                    <div class="widget-products__item">
-                                        <div class="widget-products__image">
-                                            <a href="product.html">
-                                                <img src="https://picsum.photos/700/700" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="widget-products__info">
-                                            <div class="widget-products__name"><a href="product.html">پیچ گوشتی برقی برندیکس مدل 200 وات</a></div>
-                                            <div class="widget-products__prices">850,000 ریال</div>
+                                {% for product in products %}
+                                    <div class="widget-products__list">
+                                        <div class="widget-products__item">
+                                            <div class="widget-products__image">
+                                                <a href="{{ product.get_absolute_url }}"><img src="{{ media_url }}{{ product.image_name }}" alt="" style="width: 50px;"/></a>
+                                            </div>
+                                            <div class="widget-products__info">
+                                                <div class="widget-products__name">
+                                                    <a href="{{ product.get_absolute_url }}">{{ product.product_name }}</a>
+                                                    <div class="widget-products__prices">
+                                                        {% if product.price > product.get_price_by_discount %}
+                                                            <div class="product-card__prices product-card__new-price">
+                                                            <del>{{ product.price|intcomma }} ریال </del>
+                                                            </div>
+                                                            <span style="color:red;">{{ product.get_price_by_discount|intcomma }} ریال</span>
+                                                        {% else %}
+                                                            <span>{{ product.price|intcomma }} ریال</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                             
+                                            </div>
                                         </div>
                                     </div>
-
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

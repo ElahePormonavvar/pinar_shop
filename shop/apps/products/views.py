@@ -19,9 +19,11 @@ def get_chepest_products(request,*args,**kwargs):
 
     products=Product.objects.filter(Q(is_active=True)).order_by('price')[:5]
     product_groups=get_root_group()
+    new_products=Product.objects.filter(Q(is_active=True)).order_by('-published_date')[:5]
     context={
         'products':products,
         'product_groups':product_groups,
+        'new_products':new_products,
     }
     return render(request,"products_app/partials/chepest_products.html",context)
 
@@ -36,14 +38,20 @@ def get_last_products(request,*args,**kwargs):
     }
     return render(request,"products_app/partials/last_products.html",context)
 
+# -------------------------------جدیدترین ها در صفحه فیلتر----------------------------------------
+def get_new_products(request,*args,**kwargs):
+    products=Product.objects.filter(Q(is_active=True)).order_by('-published_date')[:5]
+    context={
+        'products':products,
+    }
+    return render(request,"products_app/products.html",context)
+
 # --------------------------------------------------------------------------------------
 # گروه های محبوب
 def get_popular_products_group(request,*args,**kwargs):
     product_groups=ProductGroup.objects.filter(Q(is_active=True))\
                     .annotate(count=Count('products_of_groups'))\
                     .order_by('-count')
-
-     
     context={
         'product_groups':product_groups,
     }
@@ -130,7 +138,7 @@ def build_group_tree(parent_group):
 
 
 def product_navigation(request):
-    top_level_groups = ProductGroup.objects.filter(group_parent__isnull=True, is_active=True)
+    top_level_groups = ProductGroup.objects.filter(is_active=True)
     group_tree = []
     for group in top_level_groups:
         group_tree.append({
@@ -167,7 +175,7 @@ class ProductByGroupsView(View):
         current_group=get_object_or_404(ProductGroup,slug=slug)
         products=Product.objects.filter(Q(is_active=True) & Q(product_group=current_group))
         res_aggre=products.aggregate(min=Min('price'),max=Max('price'))
-
+        new_products=Product.objects.filter(Q(is_active=True)).order_by('-published_date')[:5]
         # price filter
         filter=ProductFilter(request.GET,queryset=products)
         products=filter.qs
@@ -210,6 +218,7 @@ class ProductByGroupsView(View):
             'show_count_product':show_count_product,
             'filter':filter,
             'sort_type':sort_type,
+            'new_products':new_products,
         }
         return render(request,"products_app/products.html",context)
 # ----------------------------------------------------------------

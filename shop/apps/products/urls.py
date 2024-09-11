@@ -20,5 +20,7 @@ urlpatterns = [
     path('statuse_of_compare_list/',views.statuse_of_compare_list,name='statuse_of_compare_list'),
     path('category/<slug:slug>/',views.ProductListView.as_view(),name='category'),
     path('product_navigation/',views.product_navigation,name='product_navigation'),
+    path('get_new_products/',views.get_new_products,name='get_new_products'),
+
  
 ]
