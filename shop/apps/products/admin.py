@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.db.models.fields.related import ManyToManyField
 from django.forms.models import ModelMultipleChoiceField
-# from django.db.models.query import QuerySet98
 from .models import Brand,ProductGroup,Product,ProductFeature,Feature,ProductGallery,FeatureValue
 from django.db.models.aggregates import Count
 from django.http import HttpRequest, HttpResponse
@@ -10,7 +9,16 @@ from django_admin_listfilter_dropdown.filters import DropdownFilter
 from django.db.models import Q
 from django.contrib.admin import SimpleListFilter
 from admin_decorators import short_description,order_field
+from django.contrib.admin.widgets import AdminSplitDateTime
+from .forms import ProductAdminForm
+from django.db import models
+import jdatetime
 # ----------------------------------------------------------------------------
+from django.utils.formats import date_format
+def jdate_display(value):
+    return jdatetime.datetime.fromgregorian(datetime=value).strftime('%Y/%m/%d')
+
+
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
     list_display=('brand_title','slug',)
@@ -59,14 +67,40 @@ class ProductGroupInstansInLine(admin.TabularInline):
 # ======================================
 @admin.register(ProductGroup)
 class ProductGroupAdmin(admin.ModelAdmin):
-    list_display=('group_title','is_active','group_parent','slug','register_date','update_date','count_sub_group','count_produc_of_group')
+    list_display=('group_title','is_active','group_parent','slug','register_date_shamsi', 'update_date_shamsi','count_sub_group','count_produc_of_group')
     list_filter=(GroupFilter,'is_active',)
+    # list_filter = (('published_date', JDateFieldListFilter),)
     search_fields=('group_title',)
     ordering=('group_parent','group_title',)
     inlines=[ProductGroupInstansInLine]
     actions=[de_active_product_group,active_product_group,export_json,]
     list_editable=['is_active']
+    form = ProductAdminForm
 
+    # formfield_overrides ={models.DateTimeField: {'widget': AdminSplitDateTime},
+    #                       models.DateField: {'widget': AdminjDateWidget},}
+    
+    def published_date_shamsi(self, obj):
+        return jdate_display(obj.published_date)
+    published_date_shamsi.short_description = 'تاریخ انتشار '
+ 
+    def register_date_shamsi(self, obj):
+        return jdate_display(obj.register_date)
+    published_date_shamsi.short_description = 'تاریخ درج '
+
+    def update_date_shamsi(self, obj):
+        return jdate_display(obj.update_date)
+    published_date_shamsi.short_description = 'تاریخ آخرین بروزرسانی'
+
+    # def get_update_date(self, obj):
+    #     return obj.update_date.strftime('%Y/%m/%d')  
+    # get_update_date.short_description = 'تاریخ آخرین بروزرسانی'
+
+    # def formfield_for_dbfield(self, db_field, **kwargs):
+    #     if db_field.name in ['published_date',]:
+    #          kwargs['widget'] = AdminjDateWidget(attrs={'date_format': '%Y/%m/%d'}) 
+    #     return super().formfield_for_dbfield(db_field, **kwargs)
+    
 # ====================================
     def  get_queryset(self,*args,**kwargs):
         qs = super(ProductGroupAdmin , self).get_queryset(*args,**kwargs)

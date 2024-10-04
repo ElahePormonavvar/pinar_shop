@@ -6,6 +6,7 @@ from django.urls import reverse
 from datetime import datetime
 from django.db.models import Sum,Avg,Q
 from middlewares.middleware import RequestMiddleware
+from django_jalali.db import models as jmodels
 # from ckeditor.fields import RichTextField
 # from django.db.models.signals import post_delete
 # from django.dispatch import receiver
@@ -35,6 +36,7 @@ class ProductGroup(models.Model):
     register_date=models.DateTimeField(auto_now_add=True,verbose_name='تاریخ درج ')
     published_date=models.DateTimeField(default=timezone.now,verbose_name='تاریخ انتشار')
     update_date=models.DateTimeField(auto_now=True,verbose_name='تاریخ آخرین بروز رسانی')
+
     slug=models.SlugField(max_length=200,null=True)
  
     def __str__(self) -> str:
@@ -77,8 +79,7 @@ class Product(models.Model):
         return self.product_name
     
     def get_absolute_url(self):
-        return reverse('products:product_details', kwargs={'slug': self.slug})
-    
+        return reverse('products:product_details', kwargs={'slug': self.slug})  
 
 # ================قیمت با تخفیف کالا====================
     def get_price_by_discount(self):

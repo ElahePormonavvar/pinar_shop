@@ -67,14 +67,12 @@ def has_internet_connection():
         return True
     except OSError:
         pass
-    
-    try:
-        # Try to connect to a different well-known website
-        socket.create_connection(("www.example.com", 80))
-        return True
-    except OSError:
-        pass
-    
     return False
+
+# --------------------------------------------------------------------------------
+import jdatetime
+def gregorian_to_jalali(date):
+    jalali_date = jdatetime.datetime.fromgregorian(datetime=date)
+    return jalali_date.strftime('%Y/%m/%d')
 
 

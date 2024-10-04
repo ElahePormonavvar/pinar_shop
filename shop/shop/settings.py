@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'apps.search.apps.SearchConfig',
     'apps.test_api.apps.TestApiConfig',
     'apps.blog.apps.BlogConfig',
-    
+    'django_jalali',
     'django_admin_listfilter_dropdown',
     'ckeditor',
     'ckeditor_uploader',
@@ -49,6 +49,10 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
+JALALI_DATE_DEFAULTS = {
+    'date_format': '%Y/%m/%d',
+    'show_today': True,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -120,9 +124,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa'
 
-TIME_ZONE = 'UTC'
+JALALI = True
+USE_JALALI = True
+
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 

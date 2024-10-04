@@ -271,8 +271,21 @@ class UpdateProfileView(LoginRequiredMixin,View):
 # -----------------------------------------------------------------------------------------
 @login_required
 def show_last_order(request):
-    orders=Order.objects.filter(customer_id=request.user.id).order_by('-register_date')[:4]
-    return render(request,'accounts_app/partials/show_last_order.html',{'orders':orders})
+    orders = Order.objects.filter(customer_id=request.user.id).order_by('-register_date')[:4]
+
+    # تبدیل تاریخ‌ها به شمسی
+    orders_with_jalali_date = []
+    for order in orders:
+        order_jalali = {
+            'id': order.id,
+            'register_date': utils.gregorian_to_jalali(order.register_date),
+            'order_state': order.order_state,
+            'get_order_total_price': order.get_order_total_price(),
+        }
+        orders_with_jalali_date.append(order_jalali)
+
+    # ارسال لیست جدید به قالب
+    return render(request, 'accounts_app/partials/show_last_order.html', {'orders': orders_with_jalali_date})
 
 # -----------------------------------------------------------------------------------------
 @login_required
