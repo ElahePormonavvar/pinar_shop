@@ -97,10 +97,10 @@ class ChangePasswordForm(forms.Form):
         return pass2
 # ------------------------------------------------------------------
 class RememberPasswordForm(forms.Form):
-    mobile_number=forms.CharField(label='',
-                            error_messages={'required':'این فیلد نمی تواند خالی باشد'},
-                            widget=forms.TextInput(attrs={'class':'form-control','placeholder':'موبایل  را وارد کنید','readonly':'readonly'},)
-                            )
+        mobile_number=forms.CharField(label='',
+                                error_messages={'required':'این فیلد نمی تواند خالی باشد'},
+                                widget=forms.TextInput(attrs={'class':'form-control','placeholder':'موبایل  را وارد کنید'})
+                                )
 # ------------------------------------------------------------------
 class UpdateProfileForm(forms.Form):
     mobile_numbe=forms.CharField(label='',
