@@ -210,7 +210,7 @@ class RememberPasswordView(View):
                 'mobile_number':data['mobile_number'],
                 'rememberpassword':True,
                }
-            messages.success(request,'جهت تغغیر رمزعبور کد دریافتی را ارسال کنید','success')
+            messages.success(request,'جهت تغیر رمزعبور کد دریافتی را ارسال کنید','success')
             return redirect('accounts:verify')
 
 # -----------------------------------------------------------------------------------------
