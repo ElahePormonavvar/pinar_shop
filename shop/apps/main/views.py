@@ -74,4 +74,8 @@ class ContactView(LoginRequiredMixin, View):
                 'form': form,
             }
         return render(request, 'partials/contact_us.html', context)
+    
+# --------------------------------------------------------------------------------------------
+def rules(request):
+    return render(request,"partials/rules.html")
 

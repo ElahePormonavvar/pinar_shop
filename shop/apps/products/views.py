@@ -10,13 +10,10 @@ from django.views.generic import ListView
 
 # --------------------------------------------------------------------------------------
 def get_root_group():
-    
     return ProductGroup.objects.filter(Q(is_active=True) & Q(group_parent=None))
 
-# --------------------------------------------------------------------------------------
-# ارزانترین محصولات
+# ---------------------------------# ارزانترین محصولات--------------------------------------
 def get_chepest_products(request,*args,**kwargs):
-
     products=Product.objects.filter(Q(is_active=True)).order_by('price')[:5]
     product_groups=get_root_group()
     new_products=Product.objects.filter(Q(is_active=True)).order_by('-published_date')[:5]
@@ -27,7 +24,46 @@ def get_chepest_products(request,*args,**kwargs):
     }
     return render(request,"products_app/partials/chepest_products.html",context)
 
-# --------------------------------------------------------------------------------------
+
+# ---------------------------------# ارزانترین محصولات با انتخاب گروه--------------------------------------
+# def get_products_by_group(request, group_slug):
+#     product_groups = get_root_group()
+#     if group_slug == 'null':
+#         products = Product.objects.all().order_by('price')[:5]
+#     else:
+#         products = Product.objects.filter(product_group__slug=group_slug).order_by('price')[:5]
+#         # new_products = Product.objects.filter(Q(is_active=True)).order_by('-published_date')[:5]
+
+#     products_data = [
+#         {
+#             'slug': product.slug,
+#             'name': product.product_name,
+#             'url': product.get_absolute_url(),
+#             'image_url': product.image_name.url if product.image_name else '',
+#             'price': product.price,
+#             'discount_price': product.get_price_by_discount(),
+#             'in_stock': product.get_number_in_warehouse() > 0,
+#             'is_favorite': product.get_user_favorite,
+#         }
+#         for product in products
+#     ]
+
+#     product_groups_data=[
+#         {
+#             'slug': product_group.slug,
+#             'title': product_group.group_title,
+#         }
+#         for product_group in product_groups
+#     ]
+#     print(products_data)
+#     return JsonResponse({
+#         'products': products_data,
+#         'product_groups': product_groups_data,
+#         # 'new_products': new_products,
+#     })
+
+
+# --------------------------------------------------------------------------------------------
 # جدیدترین محصولات
 def get_last_products(request,*args,**kwargs):
     products=Product.objects.filter(Q(is_active=True)).order_by('-published_date')[:5]

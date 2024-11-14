@@ -3,12 +3,8 @@ from .models import ProductGroup
 
 
 def build_group_tree(parent_group):
-    """
-    تابع بازگشتی برای ساخت درخت سلسله‌مراتبی از گروه‌ها.
-    """
+
     children = ProductGroup.objects.filter(group_parent=parent_group, is_active=True)
-    for child in children:
-        print(f"Parent: {parent_group.group_title}, Child: {child.group_title}")
     return [
         {
             'group': child,
@@ -16,7 +12,6 @@ def build_group_tree(parent_group):
         }
         for child in children
     ]
-
 
 
 def product_navigation_context(request):

@@ -1,4 +1,4 @@
-<header class="site__header d-lg-block d-none">
+<header class="site__header"> 
     <div class="site-header">
         <!-- .topbar -->
         <div class="site-header__topbar topbar">
@@ -26,10 +26,10 @@
             </div>
         </div>
 
-        <div class="site-header__middle container">
+        <div class="site-header__middle container hideOnMobile">
             <div class="site-header__logo">
-                <a href="index.html">
-                    <img src="{{media_url}}images/logo_header.jpg" alt="">
+                <a href="{% url 'main:index' %}">
+                    <img src="{{media_url}}images/Pinar-logo2.png" alt="logo page">
                 </a>
             </div>
             <div class="site-header__search">
@@ -46,7 +46,7 @@
             </div>
             <div class="site-header__phone">
                 <div class="site-header__phone-title">پشتیبانی</div>
-                <div class="site-header__phone-number"><span class="ltr_text">044-32258</span></div>
+                <div class="site-header__phone-number"><span class="ltr_text">0000</span></div>
             </div>
         </div>
         <!-- .topbar / end -->

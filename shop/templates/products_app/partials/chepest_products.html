@@ -1,12 +1,184 @@
+{% comment %} <div class="block block-products-carousel" data-layout="grid-5">
+    <div class="container">
+        <div>
+            {% include 'partials/product/root_group.html' with title='ارزان ترین محصولات'%}
+        </div>
+        <div class="product_flexbox" id="product-list-gp">                                    
+            {% for product in products %}
+                {% include 'partials/product/product_box.html' with type=1 %}
+            {% endfor %}
+        </div>
+    </div>
+</div> {% endcomment %}
+
+
+
+{% load humanize %}
+<div class="block block-products-carousel" data-layout="grid-5">
+    <div class="container">
+        <div class="block-header">
+            <h3 class="block-header__title">ارزان ترین محصولات</h3>
+            <div class="block-header__divider"></div>
+            <ul class="block-header__groups-list">
+                <li>
+                    <button type="button" class="block-header__group block-header__group--active" group-slug="null">همه</button>
+                </li>
+                {% for group in product_groups %}
+                    <li>
+                        <button type="button" class="block-header__group" group-slug="{{ group.slug }}">{{ group.group_title }}</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="product_flexbox" id="product-list-gp">
+            {% for product in products %}
+                <div class="product-card" style="width: 200px !important; margin-left: 12px; margin-top: 10px;">
+                    {% if product in new_products %}
+                    <div class="product-card__badges-list">
+                        <div class="product-card__badge product-card__badge--new">جدید</div>
+                    </div>
+                    {% endif %}
+                    <div class="product-card__image">
+                        <a href="{{ product.get_absolute_url }}"><img src="{{ media_url }}{{ product.image_name }}" alt="" style="width: 100px;"/></a>
+                    </div>
+                    <div class="product-card__info">
+                        <div class="product-card__name">
+                            <a href="{{ product.get_absolute_url }}">{{ product.product_name }}</a>
+                        </div>
+                    </div>
+                    <div class="product-card__actions">
+                        <div class="product-card__prices">
+                            {% if product.get_number_in_warehouse <= 0 %}
+                            <span style="color:red;">ناموجود</span>
+                            {% else %}
+                                {% if product.price > product.get_price_by_discount %}
+                                    <div class="product-card__prices product-card__new-price">
+                                        <del>{{ product.price|intcomma }} ریال </del>
+                                    </div>
+                                    <span>{{ product.get_price_by_discount|intcomma }} ریال</span>
+                                {% else %}
+                                    <span>{{ product.price|intcomma }} ریال</span>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="product-card__buttons">
+                            {% if product.get_number_in_warehouse > 0 %}
+                            <button class="btn btn-primary product-card__addtocart" type="button" onclick="add_to_shop_cart({{ product.id }},1)">افزودن به سبد</button>
+                            {% endif %}
+                            {% if user.is_authenticated %}
+                                {% if product.get_user_favorite %}
+                                    <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" id="favorite_heart" type="button">
+                                        <i class="fa fa-heart"></i>
+                                    </button>
+                                {% else %}
+                                    <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button" onclick="addToFavorite({{ product.id }})"> 
+                                        <i class="fa fa-heart-broken" id="favorite_bheart_{{ product.id }}"></i>
+                                    </button>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% comment %} {% load humanize %}
 
 <div class="block block-products-carousel" data-layout="grid-5">
     <div class="container">
-        {% include 'partials/product/root_group.html' with title='ارزان ترین محصولات'%}
-            <div class="product_flexbox">
+        
+
+        <div class="block-header">
+            <h3 class="block-header__title">ارزان ترین محصولات</h3>
+            <div class="block-header__divider"></div>
+            <ul class="block-header__groups-list">
+                <li>
+                    <button type="button" class="block-header__group block-header__group--active"  group-id="null">همه</button>
+                </li>
+        
+                {% for group in product_groups %}
+                    <li>
+                        <button type="button" class="block-header__group" group-id="{{ group.id }}">{{group.group_title}}</button>
+                    </li>
+                {% endfor %}
+        
+            </ul>
+            <div class="block-header__arrows-list">
+                <button class="block-header__arrow block-header__arrow--left" type="button">
+                    <i class="fas fa-angle-right"></i>
+                </button>
+                <button class="block-header__arrow block-header__arrow--right" type="button">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+            </div>
+        </div>
+
+
+            <div class="product_flexbox" id="product-list-gp">
                                                     
                 {% for product in products %}
-                    {% include 'partials/product/product_box.html' with type=1 %}
+                    
+
+                    <div class="product-card" style="width: 200px !important; margin-left: 12px; margin-top: 10px;">
+                        {% if product in new_products %}
+                        <div class="product-card__badges-list">
+                            <div class="product-card__badge product-card__badge--new">جدید</div>
+                        </div>
+                        {% endif %} 
+                        <div class="product-card__image">
+                        <a href="{{ product.get_absolute_url }}"><img src="{{ media_url }}{{ product.image_name }}" alt="" style="width: 100px;"/></a>
+                        </div>
+                        <div class="product-card__info">
+                        <div class="product-card__name">
+                            <a href="{{ product.get_absolute_url }}">{{ product.product_name }}</a>
+                        </div>
+                        </div>
+                        <div class="product-card__actions">
+                        <div class="product-card__prices">
+                            {% if product.get_number_in_warehouse <= 0 %}
+                            <span style="color:red;">ناموجود</span>
+                            {% else %}
+                            {% if product.price > product.get_price_by_discount %}
+                                <div class="product-card__prices product-card__new-price">
+                                <del>{{ product.price|intcomma }} ریال </del>
+                                </div>
+                                <span>{{ product.get_price_by_discount|intcomma }} ریال</span>
+                            {% else %}
+                                <span>{{ product.price|intcomma }} ریال</span>
+                            {% endif %}
+                            {% endif %}  
+                        </div>
+                        <div class="product-card__buttons">
+                            {% if product.get_number_in_warehouse > 0 %}
+                            <button class="btn btn-primary product-card__addtocart" type="button" onclick="add_to_shop_cart({{product.id}},1)">افزودن به سبد</button>
+                            {% endif %}
+                            {% if user.is_authenticated %}
+                            {% if product.get_user_favorite  %}
+                                <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" id="favorite_heart" type="button">
+                                <i class="fa fa-heart"></i>
+                                <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
+                                </button>
+                            {% else %}
+                                <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button" onclick="addToFavorite({{product.id}})"> 
+                                <i class="fa fa-heart-broken" id="favorite_bheart_{{product.id}}"></i>
+                                <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
+                                </button>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        </div>
+                    </div>
+
+
                 {% endfor %}
             </div>
     </div>
-</div>
+</div> {% endcomment %}

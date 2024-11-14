@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views import View
 from .shop_cart import ShopCart
-from apps.products.models import Product
+from apps.products.models import Product,ProductGroup
 from apps.accounts.models import Customer
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,11 +16,8 @@ from django.contrib import messages
 import utils
 
 # ----------------------------------------------------------
-# import jdatetime 
-# def fa_date(self):
-#     date2=jdatetime.date.fromgregorian(date=datetime.date) 
-#     return date2
-
+def get_root_group():
+    return ProductGroup.objects.filter(Q(is_active=True) & Q(group_parent=None))
 # -------------------------------------------------------------------
 class ShopCartView(View):
     def get(self,request,*args,**kwargs):
@@ -197,9 +194,11 @@ class ApplyCoupon(View):
 def best_selling_products_view(request):
     best_selling_products = OrderDetails.get_best_selling_products()
     new_products=Product.objects.filter(Q(is_active=True)).order_by('-published_date')[:5]
+    product_groups = get_root_group()
     context={
         'best_selling_products':best_selling_products,
         'new_products':new_products,
+        'product_groups':product_groups,
     }
     return render(request, 'products_app/partials/seller_best.html',context)
 
