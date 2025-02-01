@@ -14,10 +14,10 @@ SECRET_KEY = 'django-insecure-z(-v&a!j_#-kp=k^2_%q2so_26ksp%(q*gms+(g5l=xadtf432
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # DEBUG = False
-# ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['pinarstor.com','www.pinarstor.com']
 
 # Application definition
 
@@ -141,6 +141,7 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS=(os.path.join(BASE_DIR,'static/'),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 MEDIA_URL = '/media/'

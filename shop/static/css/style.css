@@ -161,12 +161,18 @@ h6 {
 	flex-direction: column
 }
 .site__header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+	background-color: white;
 	-ms-flex-negative: 0;
 	flex-shrink: 0
 }
 .site__body {
 	-ms-flex-positive: 1;
-	flex-grow: 1
+	flex-grow: 1;
+	margin-top: 220px;
 }
 .site__footer {
 	-ms-flex-negative: 0;
@@ -4047,7 +4053,9 @@ screen and (-ms-high-contrast:active) {
 	height: 54px;
 	background: #ee4156;
 	box-shadow: 0 1px rgba(0, 0, 0, .04), inset 0 -1px rgba(0, 0, 0, .04);
-	color: #fff
+	color: #fff;
+	/* position: sticky;
+	top: 0; */
 }
 .nav-panel--stuck {
 	z-index: 10;

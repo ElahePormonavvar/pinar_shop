@@ -75,11 +75,14 @@ class VerifyRegisterCodeView(View):
                 user=CustomUser.objects.get(mobile_number=user_session['mobile_number'])
                 if user_session['rememberpassword']==False:
                     user.is_active=True
+                    user.active_code = ''
                     user.active_code=utils.creat_random_code(5)
                     user.save()
                     messages.success(request,'ثبت نام با موفقیت انجام شد','success')
                     return redirect('main:index')
                 else:
+                    user.active_code = ''
+                    user.save()
                     return redirect("accounts:changepassword")
             else:
                 messages.error(request,'کد فعال سازی وارد شده اشتباه می باشد','danger')
