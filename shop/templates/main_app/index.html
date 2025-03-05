@@ -8,12 +8,10 @@
     <!-- .block-slideshow -->
     {% render_partial 'main:sliders' %} 
     <!-- .block-slideshow / end -->
-    <!-- .block-features -->
-
-    <!-- .block-features / end -->
-    {% render_partial 'products:chepest_products' %}
+    {% render_partial 'products:get_chepest_products' %} 
+    {% comment %} {% render_partial 'products:get_products_by_group' slug=group_slug %} {% endcomment %}
     <!-- .block-banner -->
-    <div class="block block-banner">
+    <div class="block block-banner hideOnMobile">
         <div class="container">
             <a href="" class="block-banner__body">
                 <div class="block-banner__image block-banner__image--desktop"

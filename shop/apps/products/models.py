@@ -3,7 +3,7 @@ from utils import FileUpload
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.urls import reverse
-from datetime import datetime
+from datetime import datetime,timedelta
 from django.db.models import Sum,Avg,Q
 from middlewares.middleware import RequestMiddleware
 from django_jalali.db import models as jmodels
@@ -79,7 +79,11 @@ class Product(models.Model):
         return self.product_name
     
     def get_absolute_url(self):
-        return reverse('products:product_details', kwargs={'slug': self.slug})  
+        return reverse('products:product_details', kwargs={'slug': self.slug})
+    
+    def is_new(self):
+        # بررسی می‌کند آیا محصول جدید است (مثلاً در 30 روز گذشته منتشر شده باشد)
+        return timezone.now() - self.published_date <= timedelta(days=30)
 
 # ================قیمت با تخفیف کالا====================
     def get_price_by_discount(self):

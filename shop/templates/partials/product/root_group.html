@@ -3,18 +3,18 @@
     <div class="block-header__divider"></div>
     <ul class="block-header__groups-list">
         <li>
-            <button type="button"
-                class="block-header__group block-header__group--active">همه</button>
+            <button type="button" class="block-header__group block-header__group--active">همه</button>
         </li>
-        
+
         {% for group in product_groups %}
-            <li>
-                <button type="button" class="block-header__group">{{group.group_title}}</button>
-            </li>
+        <li>
+            <button type="button" class="block-header__group alert-button">{{ group.group_title }}</button>
+        </li>
         {% endfor %}
+    
 
     </ul>
-    <div class="block-header__arrows-list">
+    <div class="block-header__arrows-list hideOnMobile">
         <button class="block-header__arrow block-header__arrow--left" type="button">
             <i class="fas fa-angle-right"></i>
         </button>

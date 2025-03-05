@@ -24,6 +24,68 @@ $(document).ready(function(){
     }
 });
 
+// --------------------------------------------------------------------------------------
+$(document).ready(function() {
+    // رویداد کلیک برای دکمه‌ها
+    $('.sidebar-btn-item').click(function(){
+        $(this).next('.sidebar-submenu').slideToggle();
+        $(this).find('.fa-angle-down').toggleClass('rotate');
+    });
+});
+
+// --------------------------------------------------------------------------------
+function hideSidebar(){
+    const navsidebar = document.querySelector('.nav-sidebar');
+    navsidebar.style.display = 'none'
+}
+// --------------------------------------------------------------------------------
+
+function showSidebar(){
+    const navsidebar = document.querySelector('.nav-sidebar');
+    navsidebar.style.display = 'flex'    
+}
+
+// ---------------------جدیدترین محصولات بر اساس گروه کالا------------------------------------
+// $(document).ready(function () {
+//     $('.block-header__group').on('click', function () {
+//         var groupSlug = $(this).attr('group-slug');
+//         $.ajax({
+//             url: `/get_products_by_group/${groupSlug}/`,
+//             method: 'GET',
+//             success: function (response) {
+//                 $('#product-list-gp').empty();
+//                 response.products.forEach(function (product) {
+//                     var productHtml = `
+//                         <div class="product-card" style="width: 200px !important; margin-left: 12px; margin-top: 10px;">
+//                             ${product.is_new ? '<div class="product-card__badges-list"><div class="product-card__badge product-card__badge--new">جدید</div></div>' : ''}
+//                             <div class="product-card__image">
+//                                 <a href="${product.url}"><img src="{{ media_url }}${product.image}" alt="" style="width: 100px;"/></a>
+//                             </div>
+//                             <div class="product-card__info">
+//                                 <div class="product-card__name">
+//                                     <a href="${product.url}">${product.name}</a>
+//                                 </div>
+//                             </div>
+//                             <div class="product-card__actions">
+//                                 <div class="product-card__prices">
+//                                     ${product.in_warehouse <= 0 ? '<span style="color:red;">ناموجود</span>' : `<span>${product.price.toLocaleString()} ریال</span>`}
+//                                 </div>
+//                                 <div class="product-card__buttons">
+//                                     ${product.in_warehouse > 0 ? '<button class="btn btn-primary product-card__addtocart" type="button" onclick="add_to_shop_cart(${product.id},1)">افزودن به سبد</button>' : ''}
+//                                 </div>
+//                             </div>
+//                         </div>`;
+//                     $('#product-list-gp').append(productHtml);
+//                 });
+//             },
+//             error: function (xhr, status, error) {
+//                 console.log("خطا در دریافت داده‌ها:", error);
+//             }
+//         });
+//         $('.block-header__group').removeClass('block-header__group--active');
+//         $(this).addClass('block-header__group--active');
+//     });
+// });
 
 // -------------------------------------------------------
 function showVal(x) {
@@ -49,6 +111,7 @@ function removeURLParametr(url,parametr){
 }
 
 
+// --------------------------------------------------------------------------------
 // ------تابع انتخاب مدل مرتب سازی
 function select_sort(){
     var select_sort_value = $("#select_sort").val();

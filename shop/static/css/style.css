@@ -19,9 +19,10 @@ body {
 	color: #3d464d;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-	overflow-y: scroll;
+	overflow-y: auto;
+    overflow-x: hidden;
 	text-align: right;
-	direction: rtl
+	direction: rtl;
 }
 svg {
 	display: block
@@ -4102,6 +4103,7 @@ screen and (-ms-high-contrast:active) {
 		margin-left: 14px
 	}
 }
+
 .search__form {
 	position: relative;
 	height: 42px;
@@ -9566,7 +9568,27 @@ screen and (-ms-high-contrast:active) {
 	padding: 5px;
   }
 
+.nav-sidebar{
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 100vh;
+	width: 250px;
+	z-index: 999;
+	background-color: rgba(255,255,255,0.75);
+	-ms-flex-direction: column;
+	flex-direction: column;
+	display: none;
+	backdrop-filter: blur(10px);
+	overflow-y: auto;
+	transition: 0.6s easa;
+	transition-property: right;
+}
+.nav-sidebar .sidebar-menu{
+	width: 100%;
+	margin-top: 50px;
 
+}
 
 /* تنظیمات برای گوشی‌ها (عرض کمتر از 576px) */
 @media (max-width: 575px) {
@@ -9648,4 +9670,72 @@ screen and (-ms-high-contrast:active) {
     .site-header__phone, .site-header__search, .site-header__logo {
         display: none;
     }
+}
+.nav-sidebar .sidebar-menu .sidebar-item{
+	position: relative;
+	cursor: pointer;
+}
+.nav-sidebar .sidebar-menu .sidebar-item a{
+	color: #000;
+	/* font-size: 14px; */
+	text-decoration: none;
+	display: block;
+	padding: 5px 30px;
+	line-height: 30px;
+
+}
+.nav-sidebar .sidebar-menu .sidebar-item a:hover{
+	background: #ee4156;
+	transition: 0.3s ease;
+}
+.nav-sidebar .sidebar-menu .sidebar-item a i{
+	margin-left: 20px;
+
+}
+.nav-sidebar .sidebar-menu .sidebar-item a .fa-angle-down{
+	position: absolute;
+	left: 0;
+	margin: 20px;
+	transition: 0.3s easa;
+}
+.nav-sidebar .sidebar-menu .sidebar-item .sidebar-submenu{
+	background: rgb(255, 255, 255, 0.1);
+	display: none;
+}
+.nav-sidebar .sidebar-menu .sidebar-item .sidebar-submenu a{
+	padding-right: 80px;
+}
+.rotate{
+	transform: rotate(-90deg);
+}
+.sidebar-close-btn{
+	position: absolute;
+	color: #3d464d;
+	font-size: 14px;
+	left: 0;
+	margin: 15px;
+	cursor: pointer;
+
+}
+.menueButton{
+	display: none;
+	cursor: pointer;
+}
+@media (max-width:991px){
+	.hideOnMobile{
+		display: none;
+	}
+	.menueButton{
+		display: block;
+	}
+}
+@media (max-width:400px){
+	.nav-sidebar{
+		width: 100%;
+	}
+}
+@media (min-width:800px){
+	.nav-sidebar{
+		display: none !important;
+	}
 }

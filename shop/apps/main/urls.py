@@ -8,5 +8,6 @@ urlpatterns = [
     path('sliders/',views.SlideView.as_view(),name="sliders"),
     path('about_us/',views.about_us,name="about_us"),
     path('contact_us/',views.ContactView.as_view(), name='contact_us'),
+    path('rules/',views.rules, name='rules'),
 
 ]     

@@ -2,10 +2,15 @@
     <div class="nav-panel">
         <div class="nav-panel__container container">
             <div class="nav-panel__row">
+                <div class="menueButton" onclick="showSidebar()">
+                    <a href="#">
+                        <img src="{{media_url}}svg/menueSidebar.svg">
+                    </a>
+                </div>
                 <div class="nav-panel__logo">
-                    <a href="index.html">
-                        <img src="{{media_url}}images/logos/navbar_logo.png" alt="">
-                    </a>       
+                    <a href="{% url 'main:index' %}">
+                        <img src="{{media_url}}images/favicon4.png" alt="">
+                    </a>
                 </div>
                 <!-- .nav-links - category-->
                 <div class="nav-panel__nav-links nav-links">
@@ -15,10 +20,10 @@
                                 <span><i class="fa fa-home"></i>&nbsp; خانه</span>
                             </a>
                         </li>
-                        <li class="nav-links__item nav-links__item--with-submenu">
+                        <li class="nav-links__item nav-links__item--with-submenu hideOnMobile">
                             <a href="#">
                                 <span>
-                                    دسته بندی کالاها
+                                    دسته بندی ها
                                     &nbsp;
                                     <i class="fa fa-angle-down"></i>
                                 </span>
@@ -62,7 +67,7 @@
                                 <!-- .megamenu / end -->
                             </div>
                         </li>
-                        <li class="nav-links__item nav-links__item--with-submenu">
+                        <li class="nav-links__item nav-links__item--with-submenu hideOnMobile">
                             <a href="#">
                                 <span>
                                     حساب کاربری&nbsp;<i class="fa fa-angle-down"></i>
@@ -87,7 +92,7 @@
                                 <!-- .menu / end -->
                             </div>
                         </li>
-                        <li class="nav-links__item nav-links__item--with-submenu">
+                        <li class="nav-links__item nav-links__item--with-submenu hideOnMobile">
                             <a href="{% url 'blogs:blog_list' %}">
                                 <span><i class="fa fa-newspaper"></i>&nbsp; بلاگ</span>
                             </a>
@@ -95,6 +100,7 @@
                     </ul>
                 </div>  
                 <!-- .nav-links / end -->
+
                 <div class="nav-panel__indicators">
                     <div class="indicator indicator--trigger--click">
                         <button type="button" class="indicator__button">
@@ -140,5 +146,32 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+
+<div  class="nav-sidebar">
+    <div class="sidebar-close-btn" onclick="hideSidebar()"><i class="fas fa-times"></i></div>
+    <div class="sidebar-menu">
+        <div class="sidebar-item">
+            <a class="sidebar-btn-item" href="#"><i class="fa fa-th"></i>دسته بندی ها<i class="fa fa-angle-left fa fa-angle-down"></i></a>
+            <div  class="sidebar-submenu">
+                {% for node in group_tree %}
+                    <a class="sidebar-subitem" href="{% url 'products:category' node.group.slug %}"><i>{{ node.group.group_title }}<i></a>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if user.is_authenticated %}                              
+            <div class="sidebar-item"><a href="{% url 'accounts:logout' %}"><i class="fa fa-user"></i>خروج</a></div>                           
+        {% else %}
+            <div class="sidebar-item"><a href="{% url 'accounts:login' %}"><i class="fa fa-user"></i>ورود</a></div>
+            <div class="sidebar-item"><a href="{% url 'accounts:register' %}"><i class="fa fa-user"></i>ثبت نام</a></div>
+        {% endif %}
+        <div class="sidebar-item"><a href="{% url 'blogs:blog_list' %}"><i class="fa fa-blog"></i>مقالات</a></div>
+        <div class="sidebar-item"><a href="{% url 'main:about_us' %}"><i class="fa fa-info-circle"></i>درباره ما</a></div>
+        <div class="sidebar-item"><a href="{% url 'main:contact_us' %}"><i class="fa fa-envelope"></i>تماس با ما</a></div>
+        <div class="sidebar-item"><a href="{% url 'main:rules' %}"><i class="fa fa-gavel"></i>قوانین</a></div>    
     </div>
 </div>
