@@ -68,7 +68,7 @@ class VerifyRegisterForm(forms.Form):
                                 widget=forms.TextInput(attrs={'class':'form-control','placeholder':'کدفعال سازی را وارد کنید'})
                                 )
 # -----------------------------------------------------------
-class LoginUserForm(forms.Form):
+class LoginUserForm(forms.Form): 
         mobile_number=forms.CharField(label='',
                                 error_messages={'required':'این فیلد نمی تواند خالی باشد'},
                                 widget=forms.TextInput(attrs={'class':'form-control','placeholder':'موبایل  را وارد کنید'})

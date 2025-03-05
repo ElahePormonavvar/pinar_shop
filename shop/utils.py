@@ -1,9 +1,26 @@
-# تولید عدد تصادفی 5 رقمی
-# 10000   99999
 def creat_random_code(count):
     import random
     count-=1
     return random.randint(10**count,10**(count+1)-1)
+
+# ----------------------------------------------------------------
+from sms_ir import SmsIr
+def send_sms(number,code):
+
+    sms_ir = SmsIr('xSXrnqLkAuAojUGThAxYiK5G4qyOYTULYsJ3uYGha88dWj3VWEXAC3kLO8ch2xtd')
+
+    result = sms_ir.send_verify_code(
+        number=str(number),
+        template_id=654532,
+        parameters=[
+            {
+
+                "name" : "CODE",
+                "value": str(code)
+
+            }
+        ],
+    )
 
 # -------------------------------------------------------------
 import os

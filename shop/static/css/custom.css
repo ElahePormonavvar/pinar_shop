@@ -8,6 +8,7 @@
 body {
 	font-family: "primary-font", "segoe ui", "tahoma";
 	line-height: 1.85;
+	font-size: 16px;
 }
 .primary-font {
 	font-family: "primary-font", "segoe ui", "tahoma" !important;
