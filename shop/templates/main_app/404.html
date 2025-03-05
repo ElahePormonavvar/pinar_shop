@@ -1,10 +1,23 @@
-{% comment %} {% extends 'main_template.html' %}
-
-{% block title %}
-    خطای 404 
-{% endblock title %}
+{% extends 'main_template.html' %}
+{% load humanize %}
+{% block title %}خطای 404{% endblock title %}
 {% block content %}
-    <div styhle="width: 80%; height: 500px; margin: 20px auto; display: flex; justify-content:center;">
-        <h1 style="text-align: center; color: red; font-size: 3rem; ">Error 404</h1>
+
+<!-- site__body -->
+<div class="site__body">
+    <div class="block">
+        <div class="container">
+            <div class="not-found">
+                <div class="not-found__404"> خطای 404</div>
+                <div class="not-found__content">
+                    <h1 class="not-found__title">صفحه مورد نظر پیدا نشد</h1>
+                    <p class="not-found__text">ما صفحه ای که دنبال آن بودید را پیدا نکردیم.
+                    </p>
+                    <a class="btn btn-secondary btn-sm" href=""{% url 'main:index' %}"">رفتن به صفحه خانه</a>
+                </div>
+            </div>
+        </div>
     </div>
-{% endblock content %} {% endcomment %}
+</div>
+<!-- site__body / end -->
+{% endblock content %}

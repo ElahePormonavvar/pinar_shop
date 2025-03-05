@@ -25,8 +25,8 @@ class SlideView(View):
         return render(request,"main_app/sliders.html",{'sliders':sliders})
     
 # ----------------------------------------------------------------
-# def handler404(request,exception=None):
-#     return render(request,'main_app/404.html')
+def handler404(request,exception=None):
+    return render(request,'main_app/404.html')
 
 # -------------------------------------------------------------------
 def about_us(request):
